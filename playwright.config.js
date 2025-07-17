@@ -6,7 +6,7 @@ module.exports = defineConfig({
   fullyParallel: true,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:5000',
+    baseURL: process.env.CI ? 'http://localhost:5000' : 'http://localhost:8080',
     trace: 'on-first-retry',
   },
   projects: [
@@ -16,8 +16,8 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run start-prod',
-    url: 'http://localhost:5000',
+    command: process.env.CI ? 'npm run start-prod' : 'npm start',
+    url: process.env.CI ? 'http://localhost:5000' : 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
