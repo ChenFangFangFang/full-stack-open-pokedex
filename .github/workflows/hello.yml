@@ -9,4 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Say hello
+        run: |
+          echo "Hello World!"
