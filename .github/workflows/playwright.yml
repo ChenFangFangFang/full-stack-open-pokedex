@@ -16,13 +16,19 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build application
-      run: npm run build
+      run: |
+        npm run build
+        ls -la dist/  # 检查构建输出
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: |
+        # 先尝试启动服务器看看是否有错误
         npm run start-prod &
-        sleep 10
+        sleep 5
+        curl -v http://localhost:5000
+        kill %1  # 关闭测试服务器
+        # 然后运行实际测试
         npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
