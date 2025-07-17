@@ -57,9 +57,10 @@
     "react-router-dom": "^6.21.1"
   },
   "jest": {
-    "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": [
-      "e2e-tests"
-    ]
-  }
+  "testEnvironment": "jsdom",
+  "testPathIgnorePatterns": [
+    "e2e-tests",
+    "tests-playwright"
+  ]
+}
 }
