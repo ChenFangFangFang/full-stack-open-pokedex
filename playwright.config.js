@@ -18,7 +18,7 @@ module.exports = defineConfig({
   webServer: {
     command: 'npm run start-prod',
     url: 'http://localhost:5000',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,  // 改为 true
     timeout: 120 * 1000,
   },
 })
