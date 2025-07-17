@@ -7,14 +7,24 @@ on:
 
 jobs:
   simple_deployment_pipeline:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install dependencies 
-        run: npm install  
 
-      - name: Check style
+      - name: Print Node and NPM versions
+        run: |
+          node -v
+          npm -v
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
         run: npm run eslint
