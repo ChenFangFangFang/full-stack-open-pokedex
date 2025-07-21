@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test')
+const { test, expect, describe } = require('@playwright/test')
 
 describe('Pokedex', () => {
   test('front page can be opened', async ({ page }) => {
