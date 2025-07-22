@@ -1,0 +1,33 @@
+name: Health Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  health_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deployed service
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://full-stack-open-pokedex-8qhb.onrender.com
+          max-attempts: 3
+          retry-delay: 5s
+          retry-all: true
+
+      - name: Discord notification - Health Check Failed
+        if: failure()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "🔴 Health Check Failed!"
+          description: |
+            The application health check has failed!
+            URL: https://full-stack-open-pokedex-8qhb.onrender.com
+            Time: ${{ github.event.head_commit.timestamp }}
+          color: 0xFF0000 
